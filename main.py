@@ -7,6 +7,7 @@ array_no_space_no_concise_no_uni = ["Rekusuki", "Semantic", "Pineault", "HalfnHa
 array_space_uni = ["qDouble G", "Double GVz", "Double GDFS", "$Double G", "0Double G0", "1017Double G", "Double G3s", "Double G2P", "qElite Ammo", "Elite AmmoVz", "Elite AmmoDFS", "$Elite Ammo", "0Elite Ammo", "1017EliteAmmo", "EliteAmmo3s", "EliteAmmo2P", "qKill Switch", "Kill SwitchVz", "Kill SwitchDFS", "$Kill Switch", "0Kill Switch", "1017Kill Switch", "Kill Switch3s", "Kill Switch2P", "qDeath Stalker", "Death StalkerVz", "Death StalkerDFS", "$Death Stalker", "0Death Stalker0", "1017Death Stalker", "Death Stalker3s", "Death Stalker2P", "qDigital Enigma", "Digital EnigmaVz", "Digital EnigmaDFS", "$Digital Enigma", "0Digital Enigma0", "1017Digital Enigma", "Digital Enigma3s", "Digital Enigma2P", "qOG Casaonova", "OG CasanovaVz", "OG CasanovaDFS", "$OG Casanova", "1017OG Casanova", "OG Casanova3s", "OG Casanova2P", "qTinfoil Hat", "Tinfoil HatVz", "Tinfoil HatDFS", "$Tinfoil Hat", "0Tinfoil Hat0", "1017Tinfoil Hat", "Tinfoil Hat3s", "Tinfoil Hat2P", "qCough Syrup", "Cough SyrupVz", "Cough SyrupDFS", "$Cough Syrup", "0Cough Syrup0", "1017Cough Syrup", "Cough Syrup3s", "Cough Syrup2P", "qNight Watcher", "Night WatcherVz", "Night WatcherDFS", "$Night Watcher", "0Night Watcher0", "1017Night Watcher", "Night Watcher3s", "Night Watcher2P", "qUndead Alive", "Undead AliveVz", "Undead AliveDFS", "$Undead Alive", "0Undead Alive0", "1017Undead Alive", "Undead Alive3s", "Undead Alive2P", "qWorst Nightmare", "Worst NightmareVz", "Worst NightmareDFS", "$Worst Nightmare", "0Worst Nightmare0", "1017Worst Nightmare", "Worst Nightmare3s", "Worst Nightmare2P", "qShort Fury", "Short FuryVz", "Short FuryDFS", "$Short Fury", "0Short Fury0", "1017Short Fury", "Short Fury3s", "Short Fury2P", "qMolly Wap", "Molly WapVz", "Molly WapDFS", "$Molly Wap", "0Molly Wap0", "1017Molly Wap", "Molly Wap3s", "Molly Wap2P", "qBlank Space", "Blank SpaceVz", "Blank SpaceDFS", "$Blank Space", "0Blank Space0", "1017Blank Space", "Blank Space3s", "Blank Space2P", "qBag Chaser", "Bag ChaserVz", "Bag ChaserDFS", "$Bag Chaser", "0Bag Chaser0", "1017Bag Chaser", "Bag Chaser3S", "Bag Chaser2P", "qThe Reaper", "The ReaperVz", "The ReaperDFS", " $The Reaper", "0The Reaper0", "1017The Reaper", "The Reaper3s", "The Reaper2P", "qFalse Hope", "False HopeVz", "False HopeDFS", "$False Hope", "0False Hope0", "1017False Hope", "False Hope3s", "False Hope2P", "qFlash Bang", "Flash BangVz", "Flash BangDFS", "$Flash Bang", "0Flash Bang0", "1017Flash Bang", "Flash Bang3s", "Flash Bang2P", "qPoint Blank", "Point BlankVz", "Point BlankDFS", "$Point Blank", "0Point Blank0", "1017Point Blank", "Point Blank3s", "Point Blank2P", "qCross Hair", "Cross HairVz", "Cross HairDFS", "$Cross Hair", "0Cross Hair0", "1017Cross Hair", "Cross Hair3s", "Cross Hair2P"] #160 items
 array_space_no_uni = ["Double G", "Elite Ammo", "Kill Switch", "Death Stalker", "Digital Enigma", "OG Casanova", "Tinfoil Hat", "Cough Syrup", "Night Watcher", "Undead Alive", "Worst Nightmare", "Short Fury", "Molly Wap", "Blank Space", "Bag Chaser", "The Reaper", "False Hope", "Flash Bang", "Point Blank", "Cross Hair"] #20 items, unable to be split into 2 arrays due to username prefixes not being interchangeable
 
+index=1
 while True: 
   def prompt(text):
     for character in text: # This function is taken from https://www.101computing.net/python-typing-text-effect/. All credit for this function is given to their rightful creators.
@@ -26,155 +27,174 @@ while True:
       prompt("Awesome!" + "\n")
       break
   except AssertionError:
-    prompt("Please enter Y/y or N/n" + "\n")
+    prompt(f"{ choice } is not Y/y or N/n" +"\n")
     quit()
-
-def no_space_concise_uni(): #functions need to be defined before being called so they are placed in descending order of how they appear to the user
+  
+def no_space_concise_uni(choice): 
+  global index
   prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_no_space_concise_uni))
+  prompt(array_no_space_concise_uni[random.randint(0, len(array_no_space_concise_uni - 1))])
   time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      no_space_concise_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ")  
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        no_space_concise_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
 
-
-def no_space_concise_no_uni(): 
+def no_space_concise_no_uni(choice): 
+  global index
   prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_no_space_concise_no_uni))
+  prompt(array_no_space_concise_no_uni[random.randint(0, len(array_no_space_concise_no_uni - 1))])
   time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      no_space_concise_no_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ") 
-
-def no_space_no_concise_uni(): 
-  prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_no_space_no_concise_uni))
-  time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      no_space_no_concise_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ") 
-
-def no_space_no_concise_no_uni(): 
-  prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_no_space_no_concise_no_uni))
-  time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      no_space_no_concise_no_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ") 
-
-def space_uni(): 
-  prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_space_uni))
-  time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      space_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ") 
-
-def space_no_uni(): 
-  prompt("Here is your username, thanks for playing: ")
-  prompt(random.choice(array_space_no_uni))
-  time.sleep(0.5)
-  choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
-  try: 
-    assert choice.lower() == "y" or choice.lower() == "n" 
-    while choice.lower() == "y":
-      os.system('clear')
-      space_no_uni()
-      choice=""
-  except AssertionError:
-    prompt("Please enter Y/y or N/n ") 
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        no_space_concise_no_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
     
-def no_space_concise():
+def no_space_no_concise_uni(choice): 
+  global index
+  prompt("Here is your username, thanks for playing: ")
+  prompt(array_no_space_no_concise_uni[random.randint(0, len(array_no_space_no_concise_uni - 1))])
+  time.sleep(0.5)
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        no_space_no_concise_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
+
+def no_space_no_concise_no_uni(choice): 
+  global index
+  prompt("Here is your username, thanks for playing: ")
+  prompt(array_no_space_no_concise_no_uni[random.randint(0, len(array_no_space_no_concise_no_uni - 1))])
+  time.sleep(0.5)
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        no_space_no_concise_no_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
+
+def space_uni(choice): 
+  global index
+  prompt("Here is your username, thanks for playing: ")
+  prompt(array_space_uni[random.randint(0, len(array_space_uni - 1))])
+  time.sleep(0.5)
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        space_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
+
+def space_no_uni(choice): 
+  global index
+  prompt("Here is your username, thanks for playing: ")
+  prompt(array_space_no_uni[random.randint(0, len(array_space_no_uni) - 1)])
+  time.sleep(0.5)
+  while index < 2:
+    choice = input("\n" + "Do you want to reroll? Duplicates may occur." + "\n" + "Y/N: ")
+    try: 
+      assert choice.lower() == "y" or choice.lower() == "n" 
+      while choice.lower() == "y":
+        os.system('clear')
+        index=index+1
+        space_no_uni(choice)
+        choice=""
+    except AssertionError:
+      prompt(f"{ choice } is not Y/y or N/n" + "\n")
+    
+def no_space_concise(choice):
   prompt("One last question. Do you need to make your username unique? Concise usernames are often taken. Some examples of concise but unique usernames are 'AvesVZ' or 'qAves'")
   time.sleep(0.5)
   choice = input("\n" + "Y/N: ")
   try: 
     assert choice.lower() == "y" or choice.lower() == "n"
-    choice = str(choice)
     if choice.lower() == 'y':
-      no_space_concise_uni()
+      no_space_concise_uni(choice)
     elif choice.lower() == 'n':
-      no_space_concise_no_uni()
+      no_space_concise_no_uni(choice)
   except AssertionError:
-    prompt("Please enter Y/y or N/n ")  
+    prompt(f"{ choice } is not Y/y or N/n" + "\n")  
 
-def no_space_no_concise():
+def no_space_no_concise(choice):
   prompt("One last question. Do you need to make your username unique? Certain usernames can be taken. Some examples of unique usernames without spaces are 'peacekeeper4L' or 'vPeacekeeper'")
   time.sleep(0.5)
   choice = input("\n" + "Y/N: ")
   try: 
     assert choice.lower() == "y" or choice.lower() == "n" 
     if choice.lower() == 'y':
-      no_space_no_concise_uni()
+      no_space_no_concise_uni(choice)
     elif choice.lower() == 'n':
-      no_space_no_concise_no_uni()
+      no_space_no_concise_no_uni(choice)
   except AssertionError:
-    prompt("Please enter Y/y or N/n ")  
+    prompt(f"{ choice } is not Y/y or N/n" + "\n") 
 
-def space(): 
+def space(choice): 
   prompt("Do you need to make your username unique? Certain usernames can be taken. Examples of unique usernames with spaces are 'Kill Switch24' or 'TYT Kill Switch'")
   time.sleep(0.5)
   choice = input("\n" + "Y/N: ")
   try: 
     assert choice.lower() == "y" or choice.lower() == "n" 
     if choice.lower() == 'y':
-      space_uni()
+      space_uni(choice)
     elif choice.lower() == 'n': 
-      space_no_uni()
+      space_no_uni(choice)
   except AssertionError:
-    prompt("Please enter Y/y or N/n ")  
+    prompt(f"{ choice } is not Y/y or N/n" + "\n")  
       
-def no_space(): 
+def no_space(choice): 
   prompt("Do you want your username to be concise? Concise usernames are one word and less than 8 letters for the sake of this generator. Some examples would be 'Aves' or 'Santana'")
   time.sleep(0.5)
   choice = input("\n" + "Y/N: ")
   try: 
     assert choice.lower() == "y" or choice.lower() == "n" 
     if choice.lower() == 'y':
-      no_space_concise()
+      no_space_concise(choice)
     elif choice.lower() == 'n': 
-      no_space_no_concise()
+      no_space_no_concise(choice)
   except AssertionError:
-    prompt("Please enter Y/y or N/n ")
-  
+    prompt(f"{ choice } is not Y/y or N/n" + "\n")
+
+def prompt1(choice):
+  choice = input("\n" + "Y/N: ")
+  try:
+    assert choice.lower() == "y" or choice.lower() == "n" 
+    if choice.lower() == 'y':
+      space(choice)
+    elif choice.lower() == 'n':
+      no_space(choice)
+  except AssertionError:
+    prompt(f"{ choice } is not Y/y or N/n" + "\n")
+
 prompt("Would you like your username to have spaces in it?")
 time.sleep(0.5)
-choice = input("\n" + "Y/N: ")
-try:
-  assert choice.lower() == "y" or choice.lower() == "n" 
-  if choice.lower() == 'y':
-    space()
-  elif choice.lower() == 'n':
-    no_space()
-except AssertionError:
-    prompt("Please enter  Y/y or N/n ")
+prompt1(choice)
